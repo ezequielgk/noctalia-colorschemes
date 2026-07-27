@@ -1236,8 +1236,8 @@
         "mSurfaceVariant": "#f2efdb",
         "mOnSurfaceVariant": "#5c6a72",
         "mOutline": "#a6b0a0",
-        "mShadow": "#5C6A72",
-        "mHover": "#f2efdb",
+        "mShadow": "#5c6a72",
+        "mHover": "#ebe7d3",
         "mOnHover": "#5c6a72"
       }
     },
@@ -2759,6 +2759,46 @@
         "mShadow": "#ffffff",
         "mHover": "#0f62fe",
         "mOnHover": "#f2f4f8"
+      }
+    },
+    {
+      "name": "Paradise",
+      "path": "Paradise",
+      "dark": {
+        "mPrimary": "#8da3b9",
+        "mOnPrimary": "#151515",
+        "mSecondary": "#8aa6a2",
+        "mOnSecondary": "#151515",
+        "mTertiary": "#a988b0",
+        "mOnTertiary": "#151515",
+        "mError": "#b66467",
+        "mOnError": "#151515",
+        "mSurface": "#151515",
+        "mOnSurface": "#e8e3e3",
+        "mSurfaceVariant": "#222222",
+        "mOnSurfaceVariant": "#b0b0b0",
+        "mOutline": "#414141",
+        "mShadow": "#000000",
+        "mHover": "#2a2a2a",
+        "mOnHover": "#e0e0e0"
+      },
+      "light": {
+        "mPrimary": "#334b5f",
+        "mOnPrimary": "#ffffff",
+        "mSecondary": "#3b7873",
+        "mOnSecondary": "#ffffff",
+        "mTertiary": "#a1548a",
+        "mOnTertiary": "#ffffff",
+        "mError": "#b66467",
+        "mOnError": "#ffffff",
+        "mSurface": "#f5f5f5",
+        "mOnSurface": "#151515",
+        "mSurfaceVariant": "#e0e0e0",
+        "mOnSurfaceVariant": "#414141",
+        "mOutline": "#8a8a8a",
+        "mShadow": "#000000",
+        "mHover": "#d8d8d8",
+        "mOnHover": "#151515"
       }
     },
     {
