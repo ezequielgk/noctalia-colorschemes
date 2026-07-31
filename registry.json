@@ -1522,6 +1522,46 @@
       }
     },
     {
+      "name": "Heartbox",
+      "path": "Heartbox",
+      "dark": {
+        "mPrimary": "#E02030",
+        "mOnPrimary": "#F4EBE0",
+        "mSecondary": "#5EC8E8",
+        "mOnSecondary": "#1A1214",
+        "mTertiary": "#E86A9A",
+        "mOnTertiary": "#1A1214",
+        "mError": "#E02030",
+        "mOnError": "#F4EBE0",
+        "mSurface": "#1A1214",
+        "mOnSurface": "#F4EBE0",
+        "mSurfaceVariant": "#2C1F22",
+        "mOnSurfaceVariant": "#8A6E78",
+        "mOutline": "#B8C0C8",
+        "mShadow": "#1A1214",
+        "mHover": "#3A2428",
+        "mOnHover": "#F4EBE0"
+      },
+      "light": {
+        "mPrimary": "#E02030",
+        "mOnPrimary": "#FFF8F0",
+        "mSecondary": "#5EC8E8",
+        "mOnSecondary": "#1A1214",
+        "mTertiary": "#E86A9A",
+        "mOnTertiary": "#1A1214",
+        "mError": "#E02030",
+        "mOnError": "#FFF8F0",
+        "mSurface": "#FFF8F0",
+        "mOnSurface": "#1A1214",
+        "mSurfaceVariant": "#F4EBE0",
+        "mOnSurfaceVariant": "#4A3A3E",
+        "mOutline": "#B8C0C8",
+        "mShadow": "#1A1214",
+        "mHover": "#E02030",
+        "mOnHover": "#FFF8F0"
+      }
+    },
+    {
       "name": "Hexa34C",
       "path": "Hexa34C",
       "dark": {
