@@ -19,6 +19,8 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
+          # This job only reads palette JSON; it never executes code from the PR.
+          allow-unsafe-pr-checkout: true
 
       - name: Automatic Palette Check
         env:
