@@ -1042,6 +1042,46 @@
       }
     },
     {
+      "name": "Catppuccin Mocha Maroon",
+      "path": "Catppuccin Mocha Maroon",
+      "dark": {
+        "mPrimary": "#eba0ac",
+        "mOnPrimary": "#1e1e2e",
+        "mSecondary": "#9399b2",
+        "mOnSecondary": "#1e1e2e",
+        "mTertiary": "#b4befe",
+        "mOnTertiary": "#1e1e2e",
+        "mError": "#f38ba8",
+        "mOnError": "#1e1e2e",
+        "mSurface": "#1e1e2e",
+        "mOnSurface": "#cdd6f4",
+        "mSurfaceVariant": "#313244",
+        "mOnSurfaceVariant": "#a6adc8",
+        "mOutline": "#6c7086",
+        "mShadow": "#11111b",
+        "mHover": "#9399b2",
+        "mOnHover": "#1e1e2e"
+      },
+      "light": {
+        "mPrimary": "#e64553",
+        "mOnPrimary": "#eff1f5",
+        "mSecondary": "#7c7f93",
+        "mOnSecondary": "#eff1f5",
+        "mTertiary": "#7287fd",
+        "mOnTertiary": "#eff1f5",
+        "mError": "#d20f39",
+        "mOnError": "#eff1f5",
+        "mSurface": "#eff1f5",
+        "mOnSurface": "#4c4f69",
+        "mSurfaceVariant": "#ccd0da",
+        "mOnSurfaceVariant": "#6c6f85",
+        "mOutline": "#9ca0b0",
+        "mShadow": "#dce0e8",
+        "mHover": "#7c7f93",
+        "mOnHover": "#eff1f5"
+      }
+    },
+    {
       "name": "Catppuccin Mocha Mauve-Lavender",
       "path": "Catppuccin Mocha Mauve-Lavender",
       "dark": {
