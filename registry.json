@@ -3762,6 +3762,46 @@
       }
     },
     {
+      "name": "Tomorrow",
+      "path": "Tomorrow",
+      "dark": {
+        "mPrimary": "#81a2be",
+        "mOnPrimary": "#1d1f21",
+        "mSecondary": "#b294bb",
+        "mOnSecondary": "#1d1f21",
+        "mTertiary": "#de935f",
+        "mOnTertiary": "#1d1f21",
+        "mError": "#cc6666",
+        "mOnError": "#1d1f21",
+        "mSurface": "#1d1f21",
+        "mOnSurface": "#c5c8c6",
+        "mSurfaceVariant": "#282a2e",
+        "mOnSurfaceVariant": "#969896",
+        "mOutline": "#373b41",
+        "mShadow": "#1d1f21",
+        "mHover": "#8abeb7",
+        "mOnHover": "#1d1f21"
+      },
+      "light": {
+        "mPrimary": "#4271ae",
+        "mOnPrimary": "#ffffff",
+        "mSecondary": "#8959a8",
+        "mOnSecondary": "#ffffff",
+        "mTertiary": "#f5871f",
+        "mOnTertiary": "#ffffff",
+        "mError": "#c82829",
+        "mOnError": "#ffffff",
+        "mSurface": "#ffffff",
+        "mOnSurface": "#4d4d4c",
+        "mSurfaceVariant": "#e0e0e0",
+        "mOnSurfaceVariant": "#8e908c",
+        "mOutline": "#d6d6d6",
+        "mShadow": "#ffffff",
+        "mHover": "#3e999f",
+        "mOnHover": "#ffffff"
+      }
+    },
+    {
       "name": "Vesper",
       "path": "Vesper",
       "dark": {
