@@ -1,10 +1,10 @@
 {
   "dark": {
-    "mPrimary": "#f5c2e7",
+    "mPrimary": "#fab387",
     "mOnPrimary": "#1e1e2e",
-    "mSecondary": "#fab387",
+    "mSecondary": "#f9e2af",
     "mOnSecondary": "#1e1e2e",
-    "mTertiary": "#94e2d5",
+    "mTertiary": "#eba0ac",
     "mOnTertiary": "#1e1e2e",
     "mError": "#f38ba8",
     "mOnError": "#1e1e2e",
@@ -42,15 +42,15 @@
       "selectionFg": "#cdd6f4",
       "selectionBg": "#585b70",
       "cursorText": "#1e1e2e",
-      "cursor": "#f5e0dc"
+      "cursor": "#fab387"
     }
   },
   "light": {
-    "mPrimary": "#ea76cb",
+    "mPrimary": "#fe640b",
     "mOnPrimary": "#eff1f5",
-    "mSecondary": "#fe640b",
+    "mSecondary": "#df8e1d",
     "mOnSecondary": "#eff1f5",
-    "mTertiary": "#179299",
+    "mTertiary": "#e64553",
     "mOnTertiary": "#eff1f5",
     "mError": "#d20f39",
     "mOnError": "#eff1f5",
@@ -88,7 +88,7 @@
       "selectionFg": "#4c4f69",
       "selectionBg": "#acb0be",
       "cursorText": "#eff1f5",
-      "cursor": "#dc8a78"
+      "cursor": "#fe640b"
     }
   }
 }
