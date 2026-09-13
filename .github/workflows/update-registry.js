@@ -9,39 +9,22 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertValidPaletteLayout } = require('./validate-layout');
 
 const REGISTRY_VERSION = 1;
 const ROOT_DIR = path.join(__dirname, '..', '..');
 const REGISTRY_PATH = path.join(ROOT_DIR, 'registry.json');
 
-/**
- * Check if a directory contains a valid theme (has a .json file)
- */
-function isThemeDirectory(dirPath) {
-  try {
-    const items = fs.readdirSync(dirPath);
-    return items.some(item => item.toLowerCase().endsWith('.json'));
-  } catch {
-    return false;
-  }
-}
 
 /**
- * Read and parse a theme's JSON file
+ * Read and parse a theme's JSON file.
+ *
+ * The layout validator guarantees this exact, case-sensitive filename exists.
  */
-function readThemeJson(dirPath) {
-  try {
-    const items = fs.readdirSync(dirPath);
-    const jsonFile = items.find(item => item.toLowerCase().endsWith('.json'));
-    if (!jsonFile) return null;
-
-    const jsonPath = path.join(dirPath, jsonFile);
-    const content = fs.readFileSync(jsonPath, 'utf8');
-    return JSON.parse(content);
-  } catch (error) {
-    console.error(`Error reading theme from ${dirPath}:`, error.message);
-    return null;
-  }
+function readThemeJson(dirPath, dirName) {
+  const jsonPath = path.join(dirPath, `${dirName}.json`);
+  const content = fs.readFileSync(jsonPath, 'utf8');
+  return JSON.parse(content);
 }
 
 /**
@@ -100,14 +83,10 @@ function scanThemes() {
 
     const dirPath = path.join(ROOT_DIR, item.name);
 
-    if (isThemeDirectory(dirPath)) {
-      const themeJson = readThemeJson(dirPath);
-      if (themeJson) {
-        const registryEntry = extractRegistryEntry(themeJson, item.name);
-        themes.push(registryEntry);
-        console.log(`- Found theme: ${item.name}`);
-      }
-    }
+    const themeJson = readThemeJson(dirPath, item.name);
+    const registryEntry = extractRegistryEntry(themeJson, item.name);
+    themes.push(registryEntry);
+    console.log(`- Found theme: ${item.name}`);
   }
 
   return themes;
@@ -137,6 +116,8 @@ function writeRegistry(registry) {
  * Main execution
  */
 function main() {
+  assertValidPaletteLayout();
+
   console.log('Scanning for themes...');
 
   const themes = scanThemes();

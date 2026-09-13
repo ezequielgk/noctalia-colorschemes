@@ -22,6 +22,9 @@ jobs:
           # This job only reads palette JSON; it never executes code from the PR.
           allow-unsafe-pr-checkout: true
 
+      - name: Validate palette layout
+        run: node .github/workflows/validate-layout.js
+
       - name: Automatic Palette Check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -140,9 +143,48 @@ jobs:
           table["light.terminal.bright.cyan"]="string"
           table["light.terminal.bright.white"]="string"
 
+          # WCAG 2.1 relative-luminance contrast, used to check every mOnX against
+          # the mX it is painted on. Emits one "ratio<TAB>mode<TAB>role<TAB>fg<TAB>bg"
+          # line per pair. Pairs whose colors failed the #rrggbb check are skipped;
+          # they are already reported above.
+          cat >"$RUNNER_TEMP/contrast.jq" <<'CONTRAST_JQ'
+          def hexbyte:
+            explode
+            | map(if . >= 48 and . <= 57 then . - 48 elif . >= 97 and . <= 102 then . - 87 else . - 55 end)
+            | .[0] * 16 + .[1];
+
+          def lin: (. / 255) | if . <= 0.04045 then . / 12.92 else pow((. + 0.055) / 1.055; 2.4) end;
+
+          def luminance:
+            ltrimstr("#") | ascii_downcase | [.[0:2], .[2:4], .[4:6]] | map(hexbyte)
+            | 0.2126 * (.[0] | lin) + 0.7152 * (.[1] | lin) + 0.0722 * (.[2] | lin);
+
+          def contrast($fg; $bg):
+            ($fg | luminance) as $a
+            | ($bg | luminance) as $b
+            | (([$a, $b] | max) + 0.05) / (([$a, $b] | min) + 0.05);
+
+          def is_color: type == "string" and test("^#[0-9a-fA-F]{6}$");
+
+          . as $palette
+          | [ "dark", "light" ][] as $mode
+          | [ "Primary", "Secondary", "Tertiary", "Error", "Surface", "SurfaceVariant", "Hover" ][] as $role
+          | ($palette[$mode] // {}) as $vars
+          | $vars["m" + $role] as $bg
+          | $vars["mOn" + $role] as $fg
+          | select(($bg | is_color) and ($fg | is_color))
+          | "\(contrast($fg; $bg) * 100 | round / 100)\t\($mode)\t\($role)\t\($fg)\t\($bg)"
+          CONTRAST_JQ
+
+          # Below this ratio the text is not legible on its background at any size.
+          contrast_floor=2.0
+          # Between the floor and this, it is legible but strained; reviewers decide.
+          contrast_warn=3.0
+
           comment_body=$(printf -- '### Automatic Palette Check')
 
           issues=0
+          warnings=0
 
           # PR Comment Title
           title_added=false
@@ -185,9 +227,33 @@ jobs:
               | select($v | test("^#[0-9a-fA-F]{6}$") | not)
               | "\($p | join(".")) = \($v)"
             ' "$file")
+
+            # Every mOnX is drawn as text and icons on its mX, so the pair has to be
+            # legible. Accent roles in light variants are the usual offenders.
+            while IFS=$'\t' read -r ratio mode role fg bg; do
+              [ -z "$ratio" ] && continue
+              shown=$(LC_ALL=C awk -v r="$ratio" 'BEGIN { printf "%.2f", r }')
+              if awk -v r="$ratio" -v f="$contrast_floor" 'BEGIN { exit !(r < f) }'; then
+                check_file_title
+
+                comment_body+=$(printf -- '\n- Illegible `mOn%s` on `m%s` in `%s`: contrast %s:1 (`%s` on `%s`), below the %s:1 floor' "$role" "$role" "$mode" "$shown" "$fg" "$bg" "$contrast_floor")
+                issues=$((issues + 1))
+              elif awk -v r="$ratio" -v w="$contrast_warn" 'BEGIN { exit !(r < w) }'; then
+                check_file_title
+
+                comment_body+=$(printf -- '\n- Low contrast `mOn%s` on `m%s` in `%s`: %s:1 (`%s` on `%s`), under %s:1' "$role" "$role" "$mode" "$shown" "$fg" "$bg" "$contrast_warn")
+                warnings=$((warnings + 1))
+              fi
+            done < <(jq -r -f "$RUNNER_TEMP/contrast.jq" "$file")
           done <<<"$diff_changes"
 
-          if [[ "$issues" -ne 0 ]]; then
+          if [[ "$issues" -ne 0 || "$warnings" -ne 0 ]]; then
+            if [[ "$warnings" -ne 0 ]]; then
+              comment_body+=$(printf -- '\n\n--- \nLow-contrast pairs are a warning, not a rejection: they do not fail this check.')
+            fi
             gh pr comment "$PR_NUMBER" --body "$comment_body"
+          fi
+
+          if [[ "$issues" -ne 0 ]]; then
             exit 1
           fi

@@ -60,8 +60,8 @@
     "mOnSurfaceVariant": "#666666",
     "mOutline": "#BDAE9F",
     "mShadow": "#666666",
-    "mHover": "#F5F5F5",
-    "mOnHover": "#e6e1dc",
+    "mHover": "#FCFCFC",
+    "mOnHover": "#A18578",
     "terminal": {
       "background": "#FFF4E3",
       "foreground": "#666666",

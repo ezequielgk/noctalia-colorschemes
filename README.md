@@ -15,8 +15,9 @@ This repo is the **community** palette source. Merged palettes are served from
 
 ## Layout
 
-One directory per palette. The **directory name is the palette name** users see, so spaces are fine
-(`Rose Pine Moon/`). Inside it goes a single JSON file, conventionally named after the directory:
+One directory per palette. The **directory name is the palette name** users see, so it must begin with an uppercase
+letter; spaces are fine (`Rose Pine Moon/`). Each directory must contain exactly one JSON file named exactly after it,
+including case:
 
 ```
 Rose Pine Moon/
@@ -78,7 +79,9 @@ value it cannot parse and the role silently falls back to something else, so `#0
 translucent shadow, it gives you a broken one. CI rejects anything that is not six hex digits.
 
 Every `mOnX` has to be legible on its `mX`. That is the whole job of those pairs, and it is what reviewers look at
-first.
+first. CI measures each pair as a WCAG contrast ratio: below **2.0:1** the check fails (that text is not readable at
+any size), and **2.0:1 to 3.0:1** is reported as a warning for the reviewer to weigh. Light variants are where this
+bites, because a near-white `mOnPrimary` on a mid-tone accent is usually the pair that goes thin.
 
 The [Theming docs](https://docs.noctalia.dev/v5/theming/) describe what each role drives.
 
@@ -94,10 +97,16 @@ source = "custom"
 That is the same loader the shipped palettes go through, without touching the registry. Switch between dark and light,
 open a few panels, and open a terminal to check the terminal colors.
 
+Run the contrast check the way CI will, before you open the PR (needs `jq`):
+
+```sh
+./.github/workflows/contrast-check.sh "My Palette"/*.json   # add --all to list passing pairs too
+```
+
 ## Submitting
 
-Open a PR against `main`. CI checks every changed palette on each push: all required roles present, and every color a
-valid `#rrggbb`. It comments on the PR with anything it finds.
+Open a PR against `main`. CI checks every changed palette on each push: all required roles present, every color a
+valid `#rrggbb`, and every `mOnX` legible on its `mX`. It comments on the PR with anything it finds.
 
 - **One palette per PR.**
 - Pick a name that is not already taken in this repo.
